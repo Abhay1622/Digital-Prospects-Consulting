@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "7817eb9c-9f89-40c2-b5e0-6e47f7d14d35",
+		"name": "Digital Prospects Task Processor",
+		"description": "API collection for Real-Time Task Processing System.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Task",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "x-idempotency-key",
+						"value": "unique-test-key-{{$randomInt}}",
+						"description": "Unique key to prevent duplicate processing",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"EMAIL_SEND\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				},
+				"description": "Creates a background task. Sends a 201 Created on new tasks, and 200 OK on duplicate key submissions."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Task Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/tasks/TASK_ID",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks",
+						"TASK_ID"
+					]
+				},
+				"description": "Retrieves the status of a task. Uses Redis caching. Check the response headers for X-Cache (HIT/MISS)."
+			},
+			"response": []
+		},
+		{
+			"name": "List Tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"tasks"
+					]
+				},
+				"description": "Retrieves the full list of tasks created in the system, sorted by creation date."
+			},
+			"response": []
+		}
+	]
+}

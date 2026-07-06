@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Web API & WebSocket Server
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - RUN_WORKER=false # Disable worker in-process to let the separate worker service handle it
+    env_file:
+      - .env
+    restart: always
+
+  # Background Queue Worker
+  worker:
+    build: .
+    command: ["node", "dist/worker-runner.js"]
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+    env_file:
+      - .env
+    restart: always
