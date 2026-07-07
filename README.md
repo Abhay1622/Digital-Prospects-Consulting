@@ -84,8 +84,8 @@ flowchart TD
 Create a `.env` file in the root directory. You can use your cloud PostgreSQL and Redis credentials:
 ```env
 PORT=3000
-DATABASE_URL="postgresql://neondb_owner:npg_W5xhLPcvVB0K@ep-curly-cell-ailryn12-pooler.c-4.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
-REDIS_URL="redis://default:v76mB3jFgv7Hy1Z8cugIgJhnnMFM1ejT@sleet-friction-trending-94275.db.redis.io:10730"
+DATABASE_URL="postgresql://username:password@host:port/database?sslmode=require"
+REDIS_URL="redis://default:password@host:port"
 ```
 
 ### Option A: Local Host Machine
